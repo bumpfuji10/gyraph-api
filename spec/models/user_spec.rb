@@ -72,5 +72,31 @@ RSpec.describe User, type: :model do
         expect(user).to be_invalid
       end
     end
+
+    # password_digest
+    context "passwordが入力されている場合" do
+      let(:user) { FactoryBot.build(:user, password_digest: 'a' * 8) }
+
+      it "ユーザーが有効であること" do
+        expect(user).to be_valid
+        expect(user.save).to eq true
+      end
+    end
+
+    context "passwordが未入力の場合" do
+      let(:user) { FactoryBot.build(:user, password_digest: nil) }
+
+      it "ユーザーが無効であること" do
+        expect(user).to be_invalid
+      end
+    end
+
+    context "passwordが7文字以下の場合" do
+      let(:user) { FactoryBot.build(:user, password_digest: "a" * 7) }
+
+      it "ユーザーが無効であること" do
+        expect(user).to be_invalid
+      end
+    end
   end
 end
