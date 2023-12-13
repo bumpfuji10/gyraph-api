@@ -6,6 +6,9 @@ Rails.application.routes.draw do
       resources :users
 
       resources :practice_records
+
+      resources :practice_details
+
     end
   end
 end
